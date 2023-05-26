@@ -1,5 +1,4 @@
-//fonctionalité
-
+// Fonctionnalité 1 : Affichage d'un message dans la console lors du clic sur le footer
 const logFooterClick = () => {
   document.querySelector("footer").addEventListener("click", () => {
     console.log("clique");
@@ -9,8 +8,7 @@ const logFooterClick = () => {
 document.addEventListener("DOMContentLoaded", logFooterClick);
 
 //-------------------------------------------------------------------
-//fonctionalité 1-bis
-
+// Fonctionnalité 1-bis : Comptage du nombre de clics sur le footer
 const countFooterClicks = () => {
   let clickCount = 0;
   document.querySelector("footer").addEventListener("click", () => {
@@ -22,8 +20,7 @@ const countFooterClicks = () => {
 document.addEventListener("DOMContentLoaded", countFooterClicks);
 
 //-------------------------------------------------------------------
-//fonctionalité 2
-
+// Fonctionnalité 2 : Toggle de la classe "collapse" du navbar
 const toggleNavbarCollapse = () => {
   document.querySelector(".navbar-toggler").addEventListener("click", () => {
     document.getElementById("navbarHeader").classList.toggle("collapse");
@@ -33,8 +30,7 @@ const toggleNavbarCollapse = () => {
 document.addEventListener("DOMContentLoaded", toggleNavbarCollapse);
 
 //-------------------------------------------------------------------
-//fonctionalité 3
-
+// Fonctionnalité 3 : Changement de couleur du texte au clic sur le premier bouton "Edit"
 const changeColorOnButtonClick = () => {
   const firstCard = document.querySelector(".card");
   const editButton = firstCard.querySelector(".btn-outline-secondary");
@@ -47,8 +43,7 @@ const changeColorOnButtonClick = () => {
 document.addEventListener("DOMContentLoaded", changeColorOnButtonClick);
 
 //-------------------------------------------------------------------
-//fonctionalité 4
-
+// Fonctionnalité 4 : Toggle de la couleur du texte au clic sur le deuxième bouton "Edit"
 const toggleColorOnButtonClick = () => {
   const secondCard = document.querySelectorAll(".card")[1];
   const editButton2 = secondCard.querySelector(".btn-outline-secondary");
@@ -65,7 +60,7 @@ const toggleColorOnButtonClick = () => {
 document.addEventListener("DOMContentLoaded", toggleColorOnButtonClick);
 
 //-------------------------------------------------------------------
-//fonctionalité 5
+// Fonctionnalité 5 : Désactivation/activation du lien Bootstrap en double-cliquant sur la navbar
 const toggleBoostrap = () => {
   const navbar = document.querySelector(".navbar");
   const linkTag = document.querySelector("link");
@@ -81,49 +76,73 @@ const toggleBoostrap = () => {
     }
   });
 };
+
 document.addEventListener("DOMContentLoaded", toggleBoostrap);
 
 //-------------------------------------------------------------------
-//fonctionalité 6
-const modifyCardOnHover = () => {
-  const viewButtons = document.querySelectorAll(".btn-group .btn-success");
+// Fonctionnalité 6 : Réduction d'une card au survol du bouton "View"
+const applyHoverEffect = () => {
+  const cards = document.querySelectorAll(".card");
 
-  for (const viewButton of viewButtons) {
-    viewButton.addEventListener("mouseover", () => {
-      const card = viewButton.closest(".card");
-      const cardText = card.querySelector(".card-text");
-      const cardImg = card.querySelector(".card-img-top");
+  cards.forEach((card) => {
+    let isHovered = false;
+    const btnView = card.querySelector(".btn-success");
+    const img = card.querySelector(".card-img-top");
+    const cardText = card.querySelector("p.card-text");
 
-      cardText.style.display = "none";
-      cardImg.style.width = "20%";
+    btnView.addEventListener("mouseenter", () => {
+      if (!isHovered) {
+        cardText.classList.add("collapse");
+        img.style.width = "20%";
+        isHovered = true;
+      } else {
+        cardText.classList.remove("collapse");
+        img.style.width = "100%";
+        isHovered = false;
+      }
     });
-
-    viewButton.addEventListener("mouseout", () => {
-      const card = viewButton.closest(".card");
-      const cardText = card.querySelector(".card-text");
-      const cardImg = card.querySelector(".card-img-top");
-
-      cardText.style.display = "";
-      cardImg.style.width = "";
-    });
-  }
+  });
 };
 
-document.addEventListener("DOMContentLoaded", modifyCardOnHover);
+applyHoverEffect();
 
 //-------------------------------------------------------------------
-//  fonctionalité 7const rotateCards = () => {const rotateCards = () => {
-const rotateCards = () => {
-  const greyButton = document.querySelector(".btn-secondary");
-  const cardsContainer = document.querySelector(".row");
-  const cards = Array.from(document.querySelectorAll(".col-md-4"));
+// Fonctionnalité 7 : Rotation des cards dans le sens d'une montre
+const rotateCardsLeft = () => {
+  const arrowRight = document.querySelector("a.btn-secondary");
+
+  arrowRight.addEventListener("click", () => {
+    const parent = document.querySelectorAll("div.row")[1];
+    const firstChild = parent.firstElementChild;
+    const lastChild = parent.lastElementChild;
+
+    parent.insertBefore(lastChild, firstChild);
+  });
 };
 
-//-------------------------------------------------------------------
-//fonctionalité 8
+rotateCardsLeft();
 
 //-------------------------------------------------------------------
-//fonctionalité 9
+// Fonctionnalité 8 : rotation des cards dans les sens inverse d'une montre
+
+const rotateCardsRight = () => {
+  const arrowLeft = document.querySelector("a.btn-primary");
+
+  arrowLeft.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const parent = document.querySelectorAll("div.row")[1];
+    const firstChild = parent.firstElementChild;
+    const lastChild = parent.lastElementChild;
+
+    parent.insertBefore(firstChild, lastChild);
+  });
+};
+
+rotateCardsRight();
+
+//-------------------------------------------------------------------
+// Fonctionnalité 9 : Modification de la mise en page en tapant des touches spécifiques
 const logoTexte = () => {
   const logo = document.querySelector(".navbar-brand");
 
